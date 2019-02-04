@@ -7,6 +7,17 @@
 <script>
   import Chat from './components/Chat'
 
+  const dialogflow = require('dialogflow')
+  const uuid = require('uuid')
+  const projectId = 'alex-year-project-2018'
+  // Uniquely identify session.
+  const sessionId = uuid.v4()
+  // Create new session.
+  const sessionClient = new dialogflow.SessionsClient({
+    keyFilename: 'C:/Users/alexe/OneDrive/University/Year 3/Dissertation/alex-year-project-2018-ad6a4749d755.json'
+  })
+  const sessionPath = sessionClient.sessionPath(projectId, sessionId)
+
   export default {
     name: 'bachelors-project-app',
     components: {
@@ -23,9 +34,35 @@
       }
     },
     methods: {
-      processInput (input) {
+      processInput: async function (input) {
+        // Push user message to chat.
         this.messages.push({
           'text': input, 'isBot': false
+        })
+        // Form DialogFlow request.
+        const request = {
+          session: sessionPath,
+          queryInput: {
+            text: {
+              text: input,
+              languageCode: 'en'
+            }
+          }
+        }
+        // Send request, detect responses and push result to chat.
+        console.log(request)
+        const responses = await sessionClient.detectIntent(request)
+        console.log('Detected intent')
+        const result = responses[0].queryResult
+        console.log(`  Query: ${result.queryText}`)
+        console.log(`  Response: ${result.fulfillmentText}`)
+        if (result.intent) {
+          console.log(`  Intent: ${result.intent.displayName}`)
+        } else {
+          console.log(`  No intent matched.`)
+        }
+        this.messages.push({
+          'text': result.fulfillmentText, 'isBot': true
         })
       }
     }

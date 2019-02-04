@@ -10,8 +10,9 @@
             </ul>
         </div>
         <div class="input-wrapper">
-            <input type="text" placeholder="What's on your mind?" v-model="input">
-            <button class="submit"> > </button>
+            <input type="text" placeholder="What's on your mind?" v-model="input"
+                   v-on:keypress.enter="onSubmit">
+            <button class="submit" v-on:click="onSubmit"> > </button>
         </div>
     </div>
 </template>
@@ -21,14 +22,18 @@
     name: 'chat',
     data () {
       return {
-        input: '',
-        messages: [
-          { 'text': 'Test User', 'isBot': false },
-          { 'text': 'Test Bot', 'isBot': true },
-          { 'text': 'Test User which is a bit longer than before.', 'isBot': false },
-          { 'text': 'Test Bot which is alot longer than before\nAnd includes new lines to test.', 'isBot': true }
-        ]
+        input: ''
       }
+    },
+    methods: {
+      onSubmit: function () {
+        this.processInput(this.input)
+        this.input = ''
+      }
+    },
+    props: {
+      messages: Array,
+      processInput: Function
     }
   }
 </script>

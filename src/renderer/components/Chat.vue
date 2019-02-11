@@ -45,7 +45,8 @@
         bottom: auto;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: calc(100% - 50px);
+        overflow-y: scroll;
         background-color: #eeeeee;
     }
 
@@ -59,6 +60,7 @@
         display: table;
         max-width: 240px;
         margin-top: 10px;
+        margin-bottom: 10px;
         padding: 10px;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
         border-radius: 20px;
@@ -72,15 +74,15 @@
     .user {
         margin-left: 10px;
         margin-right: auto;
-        background-color: #6fd4e1;
+        background-color: var(--msg-blue);
         color: rgba(255, 255, 255, 0.9);
     }
 
     .bot {
         margin-left: auto;
         margin-right: 10px;
-        background-color: #ffe9af;
-        color: rgba(0, 0, 0, 0.7);
+        background-color: var(--msg-yellow);
+        color: rgba(0, 0, 0, 0.9);
     }
 
     .input-wrapper {
@@ -107,9 +109,10 @@
     }
 
     .submit {
-        position: absolute;
+        position: fixed;
         bottom: 15px;
-        right: 15px;
+        left: auto;
+        right: 4.5%;
         width: 30px;
         height: 30px;
         border-radius: 15px;

@@ -71,4 +71,9 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+  :root {
+    --msg-blue: #7BC2EE;
+    --msg-yellow: #FFE89F;
+  }
 </style>

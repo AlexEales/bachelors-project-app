@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="chat-area">
+        <div class="chat-area" v-bind:class="blurred">
             <ul>
                 <li v-for="message in messages">
                     <div class="message" v-bind:class="{ user: !message.isBot, bot: message.isBot }">
@@ -20,15 +20,42 @@
 <script>
   export default {
     name: 'chat',
+    created: function () {
+      window.onload = this.resetTimer
+      window.onmousemove = this.resetTimer
+      window.onmousedown = this.resetTimer
+      window.ontouchstart = this.resetTimer
+      window.onclick = this.resetTimer
+      window.onkeypress = this.resetTimer
+      window.addEventListener('scroll', this.resetTimer, true)
+    },
     data () {
       return {
-        input: ''
+        input: '',
+        isBlurred: false,
+        timeoutId: null
+      }
+    },
+    computed: {
+      blurred: function () {
+        return this.isBlurred ? 'blur' : ''
       }
     },
     methods: {
       onSubmit: function () {
         this.processInput(this.input)
         this.input = ''
+      },
+      resetTimer: function () {
+        this.goActive()
+        clearTimeout(this.timeoutId)
+        this.timeoutId = setTimeout(this.goInactive, 10000)
+      },
+      goInactive: function () {
+        this.isBlurred = true
+      },
+      goActive: function () {
+        this.isBlurred = false
       }
     },
     props: {
@@ -47,6 +74,15 @@
         width: 100%;
         height: calc(100% - 50px);
         overflow-y: scroll;
+        background-color: #eeeeee;
+    }
+
+    .blur {
+        -webkit-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: blur(5px);
+        width: 100%;
+        height: 100%;
         background-color: #eeeeee;
     }
 

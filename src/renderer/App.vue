@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Chat v-bind:messages="messages" v-bind:process-input="processInput"/>
+    <Chat v-bind:crisis="isCrisis" v-bind:messages="messages" v-bind:process-input="processInput"/>
   </div>
 </template>
 
@@ -30,7 +30,8 @@
           { 'text': 'Test Bot', 'isBot': true },
           { 'text': 'Test User which is a bit longer than before.', 'isBot': false },
           { 'text': 'Test Bot which is a lot longer than before\nAnd includes new lines to test.', 'isBot': true }
-        ]
+        ],
+        isCrisis: false
       }
     },
     methods: {
@@ -39,12 +40,23 @@
         this.messages.push({
           'text': input, 'isBot': false
         })
+        this.messages.push({
+          'text': 'Thinking...', 'isBot': true
+        })
+        const result = await this.dialogflowRequest(input)
+        console.log(result)
+        this.messages.pop()
+        this.messages.push({
+          'text': result, 'isBot': true
+        })
+      },
+      dialogflowRequest: async function (utterance) {
         // Form DialogFlow request.
         const request = {
           session: sessionPath,
           queryInput: {
             text: {
-              text: input,
+              text: utterance,
               languageCode: 'en'
             }
           }
@@ -61,9 +73,7 @@
         } else {
           console.log(`  No intent matched.`)
         }
-        this.messages.push({
-          'text': result.fulfillmentText, 'isBot': true
-        })
+        return result.fulfillmentText
       }
     }
   }
@@ -75,5 +85,14 @@
   :root {
     --msg-blue: #7BC2EE;
     --msg-yellow: #FFE89F;
+  }
+
+  button {
+    font-family: 'Roboto', 'Avenir', Helvetica, Arial, sans-serif;
+    background: Transparent no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
   }
 </style>

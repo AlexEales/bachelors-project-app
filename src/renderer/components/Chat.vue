@@ -4,10 +4,26 @@
             <ul>
                 <li v-for="message in messages">
                     <div class="message" v-bind:class="{ user: !message.isBot, bot: message.isBot }">
-                        {{ message.text }}
+                        <span style="white-space: pre-wrap">{{ message.text }}</span>
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="crisis" v-if="crisis">
+            <span>
+                <button v-on:click="closeCrisis">X</button>
+                <strong>I've detected you may need a bit of help</strong>
+            </span>
+            <p>
+                You might need more help than I can provide you. If you would like some more assistance I can get in
+                touch with someone for you. Just let me know some information and I can sort it all out for you.
+            </p>
+            <p>
+                If you don't want or require any additional help feel free to close this and I will still
+                be here for you.
+            </p>
+            <input type="text" placeholder="Phone Number" style="margin-bottom: 10px"/>
+            <input type="text" placeholder="Postcode"/>
         </div>
         <div class="input-wrapper">
             <input type="text" placeholder="What's on your mind?" v-model="input"
@@ -21,13 +37,7 @@
   export default {
     name: 'chat',
     created: function () {
-      window.onload = this.resetTimer
-      window.onmousemove = this.resetTimer
-      window.onmousedown = this.resetTimer
-      window.ontouchstart = this.resetTimer
       window.onclick = this.resetTimer
-      window.onkeypress = this.resetTimer
-      window.addEventListener('scroll', this.resetTimer, true)
     },
     data () {
       return {
@@ -56,11 +66,15 @@
       },
       goActive: function () {
         this.isBlurred = false
+      },
+      closeCrisis: function () {
+        this.crisis = false
       }
     },
     props: {
       messages: Array,
-      processInput: Function
+      processInput: Function,
+      crisis: Boolean
     }
   }
 </script>
@@ -75,6 +89,24 @@
         height: calc(100% - 50px);
         overflow-y: scroll;
         background-color: #eeeeee;
+    }
+
+    .crisis {
+        position: fixed;
+        margin: 2.5%;
+        padding: 10px;
+        bottom: 50px;
+        top: auto;
+        width: 90%;
+        background-color: #ffbfbf;
+        color: rgba(0, 0, 0, 0.9);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        border-radius: 20px;
+        border: 1px solid rgba(112, 112, 112, 0.22);
+        font-family: Roboto,sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0.01px;
     }
 
     .blur {
@@ -94,7 +126,7 @@
 
     .message {
         display: table;
-        max-width: 240px;
+        max-width: 45%;
         margin-top: 10px;
         margin-bottom: 10px;
         padding: 10px;

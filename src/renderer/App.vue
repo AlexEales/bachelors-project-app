@@ -26,10 +26,7 @@
     data () {
       return {
         messages: [
-          { 'text': 'Test User', 'isBot': false },
-          { 'text': 'Test Bot', 'isBot': true },
-          { 'text': 'Test User which is a bit longer than before.', 'isBot': false },
-          { 'text': 'Test Bot which is a lot longer than before\nAnd includes new lines to test.', 'isBot': true }
+          { 'text': 'Hi I`m Sam! Feel free to ask me any questions you may have about mental health or how to get help.', 'isBot': true },
         ],
         isCrisis: false
       }

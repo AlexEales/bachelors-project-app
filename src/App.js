@@ -8,10 +8,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
       messages: [
-        { text: 'Hello Sam', isBot: false },
-        { text: 'Hello Bob', isBot: true }
+        { id: 1, text: 'Hello Sam', isBot: false },
+        { id: 2, text: 'Hello Bob', isBot: true }
       ]
     }
     this.submitMessage = this.submitMessage.bind(this);
@@ -19,20 +18,21 @@ class App extends Component {
 
   submitMessage(message) {
     this.setState(state => {
-      const messages = state.messages.push(state.input);
+      const messages = state.messages;
+      messages.push({ id: messages.length + 1, text: message, isBot: false });
       return {
-        input: message,
         messages
       };
     });
   }
 
   render() {
-    console.log(this.state.messages);
+    console.log(this.state);
     const messages = this.state.messages.map((message) => 
-    <li>
-      <Message text={message.text} isBot={message.isBot} />
-    </li>);
+      <li key={message.id}>
+        <Message text={message.text} isBot={message.isBot} />
+      </li>
+    );
     return (
       <div>
         <div className="chat-area">

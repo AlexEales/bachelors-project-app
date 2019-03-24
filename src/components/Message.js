@@ -6,7 +6,9 @@ var classNames = require('classnames');
 class Message extends Component {
     render() {
         return (
-            <div className={classNames({ message: true, 'user': !this.props.isBot, 'bot': this.props.isBot })}>
+            <div className={classNames({message: true, 
+                                        'user': !this.props.isBot, 
+                                        'bot': this.props.isBot })}>
                 <span className="message-text">{this.props.text}</span>
             </div>
         );

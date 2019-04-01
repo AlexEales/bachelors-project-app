@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './Input.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 class Input extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Input extends Component {
                 <button className="submit" onClick={() => {
                     this.props.onSubmit(this.state.value)
                 }}>
-                    >
+                    <FontAwesomeIcon icon="paper-plane"/>
                 </button>
             </div>
         );

@@ -1,0 +1,29 @@
+form {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+label {
+    text-align: center;
+    margin: 10px;
+    align-content: center;
+}
+
+.nameInput {
+    margin: 10px;
+    transform: translate(-5%, 0);
+    text-align: center;
+}
+
+.start {
+    width: 50%;
+    height: 6vh;
+    border-radius: 3vh;
+    border: 1px solid rgba(122, 122, 122, 0.22);
+    background-color: #baf1be;
+}

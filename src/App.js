@@ -9,8 +9,6 @@ import axios from 'axios';
 
 library.add(faTimes, faPaperPlane);
 
-const sessionId = require('uuid').v4();
-
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -37,7 +35,7 @@ class App extends Component {
 		this.setState(state => {
 			const messages = state.messages;
 			messages.pop();
-			messages.push({id: messages.length, name: this.state.botname, text: result, isBot: true});
+            messages.push({id: messages.length + 1, name: this.state.botname, text: result, isBot: true});
 			return {
 				messages
 			};
@@ -57,22 +55,11 @@ class App extends Component {
 		});
 	}
 
-	/*
-		TODO: This get blocked by CORS on the dialogflow side, maye work when deployed but might be better just to
-			  put this in a endpoint in the API and update the diagrams in the doc.
-	*/
 	async dialogflowRequest(utterance) {
-		const baseUrl = 'https://dialogflow.googleapis.com/v2';
-		const projectId = 'alex-year-project-2018';
-		const response = await axios.post(`${baseUrl}/projects/${projectId}/agent/sessions/${sessionId}`, {
-			"queryInput": {
-				"text": {
-					"text": utterance,
-					"languageCode": "en"
-				}
-			}
+        const response = await axios.post('https://ae470-test-api.herokuapp.com/message', {
+            "text": utterance
 		});
-		return response.queryResult.fulfillmentText;
+        return response.data.text;
 	}
 
 	render() {

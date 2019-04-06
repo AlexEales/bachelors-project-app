@@ -5,8 +5,11 @@ import Chat from './views/Chat';
 import NameForm from './views/NameForm';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPaperPlane, faTimes} from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
 library.add(faTimes, faPaperPlane);
+
+const sessionId = require('uuid').v4();
 
 class App extends Component {
 	constructor(props) {
@@ -21,14 +24,24 @@ class App extends Component {
 		this.submitName = this.submitName.bind(this);
 	}
 
-	submitMessage(message) {
+	async submitMessage(message) {
 		this.setState(state => {
 			const messages = state.messages;
 			messages.push({id: messages.length + 1, name: this.state.username, text: message, isBot: false});
+			messages.push({id: messages.length + 1, name: this.state.botname, text: 'Typing...', isBot: true});
 			return {
 				messages
 			};
 		});
+		const result = await this.dialogflowRequest(message);
+		this.setState(state => {
+			const messages = state.messages;
+			messages.pop();
+			messages.push({id: messages.length, name: this.state.botname, text: result, isBot: true});
+			return {
+				messages
+			};
+		})
 	}
 
 	submitName(user, bot) {
@@ -44,11 +57,29 @@ class App extends Component {
 		});
 	}
 
+	/*
+		TODO: This get blocked by CORS on the dialogflow side, maye work when deployed but might be better just to
+			  put this in a endpoint in the API and update the diagrams in the doc.
+	*/
+	async dialogflowRequest(utterance) {
+		const baseUrl = 'https://dialogflow.googleapis.com/v2';
+		const projectId = 'alex-year-project-2018';
+		const response = await axios.post(`${baseUrl}/projects/${projectId}/agent/sessions/${sessionId}`, {
+			"queryInput": {
+				"text": {
+					"text": utterance,
+					"languageCode": "en"
+				}
+			}
+		});
+		return response.queryResult.fulfillmentText;
+	}
+
 	render() {
 		return (
 			<Router>
 				<div className="chat-area">
-					<Route path="/" exact component={
+					<Route exact path="/" component={
 						() => <NameForm submit={this.submitName}/>
 					}/>
 					<Route path="/chat/" exact component={

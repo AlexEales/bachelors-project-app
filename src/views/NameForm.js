@@ -24,7 +24,6 @@ class NameForm extends Component {
 
     // Needed to prevent weird recursive calling issue.
     submitInput() {
-        console.log('here');
         this.props.submit(this.state.username, this.state.botname);
     }
 
@@ -33,15 +32,17 @@ class NameForm extends Component {
             <div>
                 <form>
                     <label>
-                        What would you like me to call you?
+                        What would you like me to call you?<br/>
                         <input className="nameInput" name="username" type="text" onChange={this.handleInputChange}
                                placeholder="Eliza"/>
                     </label>
+                    <br/>
                     <label>
-                        What would you like to call me?
+                        What would you like to call me?<br/>
                         <input className="nameInput" name="botname" type="text" onChange={this.handleInputChange}
                                placeholder="Sam"/>
                     </label>
+                    <br/>
                     <Link to="/chat/">
                         <button className="start" onClick={this.submitInput}>
                             Start Talking

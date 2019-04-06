@@ -1,26 +1,22 @@
 form {
-    width: 50%;
-    height: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    margin: auto;
     text-align: center;
 }
 
 label {
     text-align: center;
-    margin: 10px;
-    align-content: center;
+    margin: auto;
 }
 
 .nameInput {
-    margin: 10px;
-    transform: translate(-5%, 0);
+    margin: 5px 20px 10px auto;
+    width: 50%;
+    height: 50%;
     text-align: center;
 }
 
 .start {
+    margin: 25px auto auto;
     width: 50%;
     height: 6vh;
     border-radius: 3vh;

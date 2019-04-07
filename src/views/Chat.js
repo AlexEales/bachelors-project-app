@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import Message from '../components/Message';
 import Input from '../components/Input';
+import CrisisAlert from '../components/CrisisAlert';
 
 class Chat extends Component {
     render() {
@@ -13,7 +14,7 @@ class Chat extends Component {
             </li>
         );
         return (
-            <div>
+            <div className={this.props.blurred ? 'blurred' : ''}>
                 <Link to="/">
                     <button className="exit-chat">
                         <FontAwesomeIcon className="fa-2x" icon="times"/>
@@ -22,7 +23,10 @@ class Chat extends Component {
                 <ul className="messages">
                     {messages}
                 </ul>
-                <Input onSubmit={this.props.submit}/>
+                {this.props.isCrisis &&
+                <CrisisAlert onDismiss={this.props.crisisDismiss}/>
+                }
+                <Input onSubmit={this.props.submit} placeholder="What's on your mind?"/>
             </div>
         );
     }

@@ -21,14 +21,14 @@ class Input extends Component {
            this.props.onSubmit(this.state.value);
            this.setState({ value: '' });
         }
-     }
+    }
 
     render() {
         return (
             <div className="input-wrapper">
-                <input type="text" placeholder="What's on your mind?"
-                value={this.state.value}  onChange={this.handleChange}
-                onKeyDown={this.handleKeyPress}/>
+                <input type="text" placeholder={this.props.placeholder}
+                       value={this.state.value} onChange={this.handleChange}
+                       onKeyDown={this.handleKeyPress}/>
                 <button className="submit" onClick={() => {
                     this.props.onSubmit(this.state.value)
                 }}>

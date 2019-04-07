@@ -15,11 +15,15 @@ class App extends Component {
 		this.state = {
 			username: '',
 			botname: '',
-			messages: []
+			messages: [],
+			isCrisis: false,
+			blurred: false
 		};
 		// Bind methods.
 		this.submitMessage = this.submitMessage.bind(this);
 		this.submitName = this.submitName.bind(this);
+		this.toggleCrisis = this.toggleCrisis.bind(this);
+		this.toggleBlur = this.toggleBlur.bind(this);
 	}
 
 	async submitMessage(message) {
@@ -55,6 +59,19 @@ class App extends Component {
 		});
 	}
 
+	toggleCrisis() {
+		this.setState({
+			'isCrisis': false
+		});
+	}
+
+	toggleBlur() {
+		this.setState({
+			'blurred': !this.state.blurred
+		});
+	}
+
+	// TODO: Add in a intent for crisis and check for it here?
 	async dialogflowRequest(utterance) {
         const response = await axios.post('https://ae470-test-api.herokuapp.com/message', {
             "text": utterance
@@ -70,7 +87,9 @@ class App extends Component {
 						() => <NameForm submit={this.submitName}/>
 					}/>
 					<Route path="/chat/" exact component={
-						() => <Chat messages={this.state.messages} submit={this.submitMessage}/>
+						() => <Chat messages={this.state.messages} submit={this.submitMessage}
+									blurred={this.state.blurred} toggleBlur={this.toggleBlur}
+									isCrisis={this.state.isCrisis} crisisDismiss={this.toggleCrisis}/>
 					}/>
 				</div>
 			</Router>

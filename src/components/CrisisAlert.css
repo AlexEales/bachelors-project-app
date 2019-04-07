@@ -1,0 +1,45 @@
+.crisis-wrapper {
+    position: relative;
+    margin: auto;
+    padding: 20px 10px 20px 10px;
+    width: calc(80% - 30px);
+    background-color: rgba(255, 0, 0, 0.36);
+    border-radius: 20px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1150px) {
+    .crisis-wrapper {
+        width: calc(60% - 30px);
+    }
+}
+
+.crisis-input {
+    position: relative;
+    margin: 0 10px 0 0;
+    left: 10px;
+    padding: 10px;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    border: 1px solid rgba(112, 112, 112, 0.22);
+    font-family: Roboto, sans-serif;
+}
+
+.crisis-submit {
+    margin: 10px 0 0 0;
+    width: 30%;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(122, 122, 122, 0.22);
+    background-color: #baf1be;
+    font-size: 1em;
+    color: black;
+}
+
+.exit-crisis {
+    position: relative;
+    left: calc(-50% + 15px);
+    color: black;
+}

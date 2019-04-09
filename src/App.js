@@ -16,7 +16,7 @@ class App extends Component {
 			username: '',
 			botname: '',
 			messages: [],
-			isCrisis: false,
+			isCrisis: true,
 			blurred: false
 		};
 		// Bind methods.

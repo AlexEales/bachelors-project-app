@@ -26,7 +26,7 @@ class Input extends Component {
     render() {
         return (
             <div className="input-wrapper">
-                <input type="text" placeholder={this.props.placeholder}
+                <input autoFocus type="text" placeholder={this.props.placeholder}
                        value={this.state.value} onChange={this.handleChange}
                        onKeyDown={this.handleKeyPress}/>
                 <button className="submit" onClick={() => {

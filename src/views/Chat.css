@@ -1,4 +1,12 @@
-.exit-chat {
+.top-buttons {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.top-button {
     color: slategrey;
 }
 
@@ -6,6 +14,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    overflow: auto;
     overflow-y: scroll;
     position: fixed;
     top: 30px;

@@ -15,16 +15,26 @@ class Chat extends Component {
         );
         return (
             <div className={this.props.blurred ? 'blurred' : ''}>
-                <Link to="/">
-                    <button className="exit-chat">
-                        <FontAwesomeIcon className="fa-2x" icon="times"/>
+                <div className="top-buttons">
+                    <Link to="/">
+                        <button className="top-button">
+                            <FontAwesomeIcon className="fa-3x" icon="times"/>
+                        </button>
+                    </Link>
+
+                    <button className="top-button" onClick={ this.props.toggleBlur }>
+                        <FontAwesomeIcon className="fa-2x" icon="adjust"/>
                     </button>
-                </Link>
+
+                    <button className="top-button" style={{marginRight: '20px'}} onClick={ this.props.toggleCrisis }>
+                        <FontAwesomeIcon className="fa-2x" icon="exclamation"/>
+                    </button>
+                </div>
                 <ul className="messages">
                     {messages}
                 </ul>
-                {this.props.isCrisis &&
-                <CrisisAlert onDismiss={this.props.crisisDismiss}/>
+                {this.props.isCrisis && 
+                <CrisisAlert onDismiss={this.props.toggleCrisis}/>
                 }
                 <Input onSubmit={this.props.submit} placeholder="What's on your mind?"/>
             </div>

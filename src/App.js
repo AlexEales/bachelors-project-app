@@ -4,10 +4,10 @@ import './App.css';
 import Chat from './views/Chat';
 import NameForm from './views/NameForm';
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPaperPlane, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faPaperPlane, faTimes, faAdjust, faExclamation} from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
 
-library.add(faTimes, faPaperPlane);
+library.add(faTimes, faPaperPlane, faAdjust, faExclamation);
 
 class App extends Component {
 	constructor(props) {
@@ -61,7 +61,7 @@ class App extends Component {
 
 	toggleCrisis() {
 		this.setState({
-			'isCrisis': false
+			'isCrisis': !this.state.isCrisis
 		});
 	}
 
@@ -89,7 +89,7 @@ class App extends Component {
 					<Route path="/chat/" exact component={
 						() => <Chat messages={this.state.messages} submit={this.submitMessage}
 									blurred={this.state.blurred} toggleBlur={this.toggleBlur}
-									isCrisis={this.state.isCrisis} crisisDismiss={this.toggleCrisis}/>
+									isCrisis={this.state.isCrisis} toggleCrisis={this.toggleCrisis}/>
 					}/>
 				</div>
 			</Router>

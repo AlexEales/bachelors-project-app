@@ -1,0 +1,25 @@
+form {
+    margin: auto;
+    text-align: center;
+}
+
+label {
+    text-align: center;
+    margin: auto;
+}
+
+.nameInput {
+    margin: 5px 20px 10px auto;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+}
+
+.start {
+    margin: 25px auto auto;
+    width: 50%;
+    height: 6vh;
+    border-radius: 3vh;
+    border: 1px solid rgba(122, 122, 122, 0.22);
+    background-color: #baf1be;
+}
